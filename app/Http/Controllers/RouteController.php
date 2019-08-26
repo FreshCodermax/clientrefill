@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Jobcategory;
+use App\PriceRange;
 use App\User;
 use DB;
 use Auth;
@@ -30,6 +31,16 @@ class RouteController extends Controller
 
     public function Viewads() {
         $cats = Jobcategory::all();
-        return view('pages.adsPage')->with('cats', $cats);
+        $pricerange = PriceRange::all();
+        //dd($cats);
+        return view('pages.adsPage', [
+            'cats'=>$cats,
+            'pricerange'=> $pricerange
+            ]);
+    }
+
+    public function index() {
+        //dd('route');
+        return view('pages.dashboard');
     }
 }

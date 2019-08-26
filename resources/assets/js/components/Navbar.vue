@@ -1,4 +1,5 @@
-<!-- Navigation -->
+<template>
+    <!-- Navigation -->
 <nav class="navbar navbar-default navbar-static-top"  style="margin-bottom: 0">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -7,7 +8,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#"><img src="{{URL::to('assets/img/logo.png')}}" class="img-responsive" alt="Logo"></a>
+        <a class="navbar-brand" href="#"><img :src=" image + 'assets/img/logo.png'" class="img-responsive" alt="Logo"></a>
     </div>
     <!-- /.navbar-header -->
 
@@ -35,7 +36,7 @@
                     <a href="messages.html">
                         <div class="message-apt">
                             <div class="user-img">
-                                <img src="assets/img/user-1.jpg" class="img-responsive img-circle" alt="">
+                                <img :src=" image + 'assets/img/user-1.jpg'" class="img-responsive img-circle" alt="">
                                 <span class="profile-status online"></span>
                             </div>
                             <div class="message-body">
@@ -52,7 +53,7 @@
                     <a href="messages.html">
                         <div class="message-apt">
                             <div class="user-img">
-                                <img src="assets/img/user-2.jpg" class="img-responsive img-circle" alt="">
+                                <img :src=" image + 'assets/img/user-2.jpg'" class="img-responsive img-circle" alt="">
                                 <span class="profile-status warning"></span>
                             </div>
                             <div class="message-body">
@@ -69,7 +70,7 @@
                     <a href="messages.html">
                         <div class="message-apt">
                             <div class="user-img">
-                                <img src="assets/img/user-3.jpg" class="img-responsive img-circle" alt="">
+                                <img :src=" image + 'assets/img/user-3.jpg'" class="img-responsive img-circle" alt="">
                                 <span class="profile-status busy"></span>
                             </div>
                             <div class="message-body">
@@ -86,7 +87,7 @@
                     <a href="messages.html">
                         <div class="message-apt">
                             <div class="user-img">
-                                <img src="assets/img/user-4.jpg" class="img-responsive img-circle" alt="">
+                                <img :src="image + 'assets/img/user-4.jpg'" class="img-responsive img-circle" alt="">
                                 <span class="profile-status offline"></span>
                             </div>
                             <div class="message-body">
@@ -187,27 +188,27 @@
             </a>
             <div class="dropdown-menu dropdown-grid animated flipInX">
                 <a href="index.html" class="dropdown-item">
-                    <img src="assets/img/dashboard.png" class="img-responsive" alt="" />
+                    <img :src=" image + 'assets/img/dashboard.png'" class="img-responsive" alt="" />
                     <span class="dropdown-title">Dashboard</span>
                 </a>
                 <a href="messages.html" class="dropdown-item">
-                    <img src="assets/img/chat.png" class="img-responsive" alt="" />
+                    <img :src=" image + 'assets/img/chat.png'" class="img-responsive" alt="" />
                     <span class="dropdown-title">Chat</span>
                 </a>
                 <a href="settings.html" class="dropdown-item">
-                    <img src="assets/img/settings.png" class="img-responsive" alt="" />
+                    <img :src="image + 'assets/img/settings.png'" class="img-responsive" alt="" />
                     <span class="dropdown-title">Settings</span>
                 </a>
                 <a href="create-jobs.html" class="dropdown-item">
-                    <img src="assets/img/add-job.png" class="img-responsive" alt="" />
+                    <img :src=" image +'assets/img/add-job.png'" class="img-responsive" alt="" />
                     <span class="dropdown-title">New Jobs</span>
                 </a>
                 <a href="freelancers.html" class="dropdown-item">
-                    <img src="assets/img/freelancers.png" class="img-responsive" alt="" />
+                    <img :src="image + 'assets/img/freelancers.png'" class="img-responsive" alt="" />
                     <span class="dropdown-title">Freelancers</span>
                 </a>
                 <a href="my-profile.php" class="dropdown-item">
-                    <img src="assets/img/profile.png" class="img-responsive" alt="" />
+                    <img :src="image + 'assets/img/profile.png'" class="img-responsive" alt="" />
                     <span class="dropdown-title">Profile</span>
                 </a>
             </div>
@@ -216,14 +217,14 @@
         <!-- /.dropdown -->
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <img src="{{URL::to('assets/img/user-1.jpg')}}" class="img-responsive img-circle" alt="user">
+                <img :src=" image+'assets/img/user-1.jpg'" class="img-responsive img-circle" alt="user">
             </a>
             <ul class="dropdown-menu dropdown-user right-swip">
                 <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
                 </li>
                 <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                 </li>
-                <li><a href="{{ route('logout')}}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                <li><a :href="image +'logout'"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                 </li>
 
             </ul>
@@ -248,27 +249,81 @@
                  <router-link tag="li" to="/dashboard/freelancer">
                     <a><i class="ti ti-file"></i>freelancers</a>
                 </router-link>
+                <li>
+						<a href="javascript:void(0)"><i class="ti ti-ruler-pencil"></i>Ads<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <router-link to="/dashboard/postads" tag="li">
+                                <a>Post Ads</a>
+                            </router-link>
+                            <router-link to="/dashboard/manageads" tag="li">
+                                <a>Manage Ads</a>
+                            </router-link>
+                        </ul>
+				</li>
+                <li>
+                        <a href="javascript:void(0)"><i class="ti ti-ruler-pencil"></i>Jobs<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <router-link to="/dashboard/postjobs" tag="li">
+                                <a>Post Jobs</a>
+                            </router-link>
+                            <router-link to="/dashboard/managejobs" tag="li">
+                                <a>Manage Jobs</a>
+                            </router-link>
+									
 
+						</ul>
+				</li>
+
+                <router-link tag="li" to="/dashboard/getpremium">
+                   <a> <i class="ti ti-star"></i>Get Premium</a>
+                </router-link>
+
+                <li><a :href="image +'logout'" ><i class="ti ti-shift-right"></i>Log Out</a></li>
+                <!-- <router-link tag="li" to="">
+                    <a><i class="ti ti-folder"></i>My Profile</a>
+                </router-link>
+                
+                
+
+                <router-link tag="li" to="">
+                    <a><i class="ti ti-shift-right"></i>Log Out</a>
+                </router-link> -->
                 
             </ul>
 
                
-            {{-- <ul class="nav" id="side-menu">
+            
                 
-               <li class="active">
-                   <a href="index.html"><i class="fa fa-bullseye"></i>Dashboard</a>
-                </li>
-
-               <li><a href="freelancers.html"><i class="ti ti-file"></i>freelancers</a></li>
-
-                <li><a href="my-profile.php"><i class="ti ti-folder"></i>My Profile</a></li>
-
-                <li><a href="create-membership.html"><i class="ti ti-star"></i>Get Premium</a></li>
-
-                <li><a href="{{route('logout')}}"><i class="ti ti-shift-right"></i>Log Out</a></li>
-            </ul> --}}
+               
+            
         </div>
         <!-- /.sidebar-collapse -->
     </div>
 </nav>
 <!-- Sidebar Navigation -->
+</template>
+
+<script>
+    export default {
+        name: 'navbar',
+        data() {
+            return{
+                image: 'http://clientrefill.test/',
+                res: "",
+                
+            }
+        },
+
+       methods: {
+           Logout() {
+               axios.get('/logout')
+                    .then(response=>this.res = response.data.message);
+                    //console.log(this.res);
+                    if(this.res == "logged out") {
+                       // window.location.href = image + "/login";
+                      router.push('login');
+                    }
+           }
+       },
+    }
+</script>

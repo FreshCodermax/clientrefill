@@ -11,7 +11,7 @@
                                 <li class="menu-left"><a href="#">Products Category</a> </li>
                                 <li class="menu-left"><a href="{{route('jobcate')}}">Jobs Category</a></li>
                                 @if(Auth::check())
-                                    <li><a href="{{route('dashboard')}}">Dashboard</a></li>
+                                    <li><a href="{{url('dashboard/')}}">Dashboard</a></li>
                                 @else
                                         <li><a href="{{route('login')}}">Log In</a></li>
                                         <li><a href="{{route('signup')}}">Sign Up</a></li>

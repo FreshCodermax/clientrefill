@@ -41,7 +41,11 @@ Route::group(['middleware'=>'guest'], function() {
         'uses'=> 'AuthController@Sigin',
         'as'=>'sigin'
     ]);
-
+    
+    Route::post('/sign2', [
+        'uses'=> 'AuthController@Sigin2',
+        'as'=> 'sigin2'
+    ]);
     Route::get('/jobcate', [
         'uses'=> 'RouteController@jobcate',
         'as'=> 'jobcate'
@@ -67,6 +71,7 @@ Route::group(['middleware'=>'guest'], function() {
         'uses'=> 'UserController@Postads',
         'as'=>'postads'
     ]);
+    Route::get('/dashboard2/{any?}', 'RouteController@index')->where('any', '.*');
 });
 
 
@@ -76,10 +81,10 @@ Route::group(['middleware'=>'auth'], function() {
         'as'=> 'complete'
     ]);
 
-    Route::get('/dashboard', [
-        'uses'=> 'AuthController@Dashboard',
-        'as'=> 'dashboard'
-    ]);
+    // Route::get('/dashboard', [
+    //     'uses'=> 'AuthController@Dashboard',
+    //     'as'=> 'dashboard'
+    // ]);
 
     Route::post('/completeregister',[
         'uses'=>'UserController@CompleteRegister',
@@ -90,4 +95,8 @@ Route::group(['middleware'=>'auth'], function() {
         'uses'=> 'AuthController@Logout',
         'as'=> 'logout'
     ]);
+
+    Route::any('/dashboard/{any?}', 'RouteController@index')->where('any', '.*');
+
+   
 });

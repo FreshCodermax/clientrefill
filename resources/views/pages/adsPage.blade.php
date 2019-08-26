@@ -20,14 +20,17 @@
 
     <div class="site-section bg-light">
       <div class="container">
+        <div class="alert" id="message" style="display: none"></div>
         <div class="row">
 
           <div class="col-md-12 col-lg-8 mb-5">
 
 
 
-            <form action="{{route('postads')}}" method="POST" class="p-5 bg-white post-form" enctype="multipart/form-data">
-                {{ csrf_field() }}
+            <form action="{{route('postads')}}" id="submit" enctype="multipart/form-data" method="POST">
+
+              {{ csrf_field() }}
+                
 
               <div class="row form-group">
                 <div class="col-md-12 mb-3 mb-md-0">
@@ -38,7 +41,7 @@
 
               <div class="row form-group">
                 <div class="col-md-12 mb-3 mb-md-0">
-                  <label class="font-weight-bold" for="fullname">Project category</label>
+                  <label class="font-weight-bold" for="jobcategory">Project category</label>
                   <select id="job-category" required name="jobcategory" class="form-control">
                     <option selected="selected">Select a category</option>
                     
@@ -52,6 +55,29 @@
               </div>
 
               <div class="row form-group">
+                <div class="col-md-6 mb-3 mb-md-0">
+                  <label for="price_range" class="font-weight-bold">Price Range</label>
+                  <select name="price_range" id="price_range" class="form-control">
+                    <option selected="selected">Select Price Range</option>
+                    
+                    @foreach ($pricerange as $range)
+                       <option value="{{$range->price_ranges}}">{{$range->price_ranges}}</option>
+                    @endforeach
+                    
+                   
+                    
+                  </select>
+                </div>
+
+                <div class="col-md-6 mb-3 mb-md-0">
+                  <label for="price" class="font-weight-bold">Price</label>
+                  <input type="text" id="price" name="price" class="form-control" placeholder="&#8358 20000" required>
+
+                </div>
+
+              </div>
+
+              <div class="row form-group">
                 <div class="col-md-12 mb-3 mb-md-0">
                   <label class="font-weight-bold" for="fullname">Tell us more about your project</label>
                   <textarea name="aboutproject" required class="form-control" id="about-project" cols="30" rows="4" placeholder="Describe your propose project: Start with a bit about yourself or your business, and include an overview of what you need done."></textarea>
@@ -59,7 +85,8 @@
               </div>
 
               <label class="font-weight-bold" for="projectfile">Click browse to upload a file to better describe your ads</label>
-              <input type="file" name="projectfile">
+              <input type="file" name="projectfile" id="file">
+              <span class="alert" id="message" style="display: none"></span>
               
               {{--  <div class="butty">
                   <input  name="projectfile" type="file"/>
@@ -75,7 +102,10 @@
 
               <div class="row form-group">
                 <div class="col-md-12">
-                  <input type="submit" id="submit" value="Post Request" class="btn btn-primary  py-2 px-5">
+
+                  <input type="submit" value="Post Request" class="btn btn-primary  py-2 px-5">
+                 
+                  
                   <input type="submit" id="please" value="Please wait..." class="btn btn-primary  py-2 px-5 hidden" disabled>
                 </div>
               </div>
@@ -111,48 +141,44 @@
 @section('script')
 <script src="{{URL::to('js/dropzone.js')}}"></script>
 <script>
-    Dropzone.options.myDropzone = {
-      url: "/Account/Create",
-      autoProcessQueue: false,
-      uploadMultiple: true,
-      parallelUploads: 100,
-      maxFiles: 100,
-      acceptedFiles: "image/*",
-  
-      init: function () {
-  
-        var submitButton = document.querySelector("#submit-all");
-        var wrapperThis = this;
-  
-        submitButton.addEventListener("click", function () {
-          wrapperThis.processQueue();
-        });
-  
-        this.on("addedfile", function (file) {
-  
-          // Create the remove button
-          var removeButton = Dropzone.createElement("<button class='btn btn-lg dark'>Remove File</button>");
-  
-          // Listen to the click event
-          removeButton.addEventListener("click", function (e) {
-            // Make sure the button click doesn't submit the form:
-            e.preventDefault();
-            e.stopPropagation();
-  
-            // Remove the file preview.
-            wrapperThis.removeFile(file);
-            // If you want to the delete the file on the server as well,
-            // you can do the AJAX request here.
-          });
-  
-          // Add the button to the file preview element.
-          file.previewElement.appendChild(removeButton);
-        });
-  
-        this.on('sendingmultiple', function (data, xhr, formData) {
-          formData.append("Username", $("#Username").val());
-        });
-      }
-    };
+   $(document).ready(function() {
+     $('#submit').on('submit' ,function(e) {
+      e.preventDefault();
+      var URL = $(this).attr('action');
+      var errors = [];
+      $.ajax({
+        url: URL,
+        method:"POST",
+        data:new FormData(this),
+        dataType: 'JSON',
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function(data)
+        {
+          if(data.message == 0) {
+            $('#login').modal('show');
+            $('#message').hide();
+          }else{
+          $('#message').css('display', 'block');
+          $('#message').html(data.message[0]);
+          $('#message').addClass(data.class_name);
+            
+          }
+          //console.log(data.message);
+         
+
+
+
+        }
+        
+      })
+      
+      
+      
+     })
+
+     
+   })
     </script>
 @endsection

@@ -26,9 +26,9 @@ class AuthController extends Controller
         return view('pages.completeregister');
     }
 
-    public function Dashboard() {
-        return view('pages.dashboard');
-    }
+    // public function Dashboard() {
+    //     return view('pages.dashboard');
+    // }
 
     public function Register(Request $request) {
         $time = \Carbon\Carbon::now()->toDayDateTimeString();
@@ -57,6 +57,24 @@ class AuthController extends Controller
 
     }
 
+    public function Sigin2(Request $request) {
+        //dd($request->all())
+        $this->validate($request,[
+    		'email'=>'required',
+    		'password'=> 'required'
+        ]);
+        $email = strip_tags($request['email']);
+        $password = $request['password'];
+        
+        if(Auth::attempt(['email'=> $email, 'password'=>$password])) {
+           //dd('Login');
+           return redirect()->intended('/dashboard');
+
+        }else{
+            return redirect()->back()->withErrors('Username or Password is incorrect')->withInput();
+        }
+    }
+
     public function Sigin(Request $request) {
 
         $this->validate($request,[
@@ -68,7 +86,7 @@ class AuthController extends Controller
         
         if(Auth::attempt(['email'=> $email, 'password'=>$password])) {
            //dd('Login');
-           return redirect()->route('dashboard');
+           return redirect()->intended('/dashboard');
 
         }else{
             return redirect()->back()->withErrors('Username or Password is incorrect')->withInput();
@@ -83,6 +101,7 @@ class AuthController extends Controller
      }
 
      public function Logout() {
+        // dd('logout here');
          
          Auth::logout();
          return redirect()->route('login');

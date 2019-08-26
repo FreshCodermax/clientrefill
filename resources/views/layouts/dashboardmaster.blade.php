@@ -18,8 +18,11 @@
 	</head>
 
 	<body>
+        <div id="app">
+            @yield('content')
+        </div>
 
-        @yield('content')
+       
 
 
     <script src="{{URL::to('assets/plugins/js/jquery.min.js')}}"></script>
@@ -39,6 +42,28 @@
     <!-- Custom Theme JavaScript -->
     <script src="{{URL::to('assets/js/custom.js')}}"></script>
     <script src="{{URL::to('assets/js/dashboard-4.js')}}"></script>
+    <script src="/js/app.js"></script>
+
+
+    <script src="{{URL::to('assets/js/custom.js')}}"></script>
+
+    <script>
+            $(document).ready(function () {
+            $(".page-head").html("Premium");
+             $(".cred-button").click(function () {
+                $(".cred-page").show();
+                $(".premium").hide();
+                $(".sub-page").hide();
+                $(".page-head").html("Credit");
+            });
+             $(".sub-button").click(function () {
+                $(".sub-page").show();
+                $(".cred-page").hide();
+                $(".premium").hide();
+                $(".page-head").html("Subscription");
+             });
+            });
+            </script>
 
     </body>
 </html>
